@@ -31,9 +31,6 @@ public class Car {
     @Enumerated(EnumType.STRING)
     private CarGearBox carGearBox;
 
-    // @Enumerated(EnumType.STRING)
-    // private CarGearBox carGearBox;
-
     private Double engineCapacity;
 
 
