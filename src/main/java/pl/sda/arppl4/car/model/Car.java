@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Data // Getter Setter ToString EqualsAndHashCode
 @Entity
@@ -22,11 +23,9 @@ public class Car {
     private String name;
     private String make;
     private LocalDate productionDate;
+    private LocalDate rokProdukcji;
 
-    //  @Enumerated(EnumType.STRING)
-    //  private CarBodyType bodyType;
-
-    private Integer seats;
+   private Integer seats;
 
     @Enumerated(EnumType.STRING)
     private CarGearBox carGearBox;
@@ -34,8 +33,9 @@ public class Car {
     private Double engineCapacity;
 
 
-    // @EqualsAndHashCode.Exclude
-    // private Set<CarRental> carRentals;
+    @OneToMany(mappedBy = "car", fetch = FetchType.EAGER)
+    @EqualsAndHashCode.Exclude
+    private Set<CarRental> carRentals;
 
     public Car(String name, String make, LocalDate productionDate, Integer seats, Double engineCapacity, CarGearBox carGearBox) {
         this.name = name;

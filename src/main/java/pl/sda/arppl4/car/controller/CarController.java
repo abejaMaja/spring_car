@@ -5,9 +5,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import pl.sda.arppl4.car.model.Car;
+import pl.sda.arppl4.car.model.CarRental;
 import pl.sda.arppl4.car.service.CarService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -40,10 +42,21 @@ public class CarController {
         carService.deleteById(identyfikator);
     }
 
-    @PatchMapping("/update{identifier}")
-    public void updateCar(@PathVariable(name = "identifier")@RequestBody Car car) {
-        log.info("Wywołano aktualizację auta: " + car);
-        carService.updateCar(car);
+    @PatchMapping("/update/{identifier}")
+    public void updateCar(@PathVariable Long identifier, @RequestBody Car car) {
+       log.info("Wywołano aktualizację auta: " + car);
+       carService.updateCar(identifier, car);
+   }
+
+    @GetMapping("/list/{identifier}")
+    public Optional<Car> findByIdCar(@PathVariable(name = "identifier") Long identyfikator) {
+        log.info("Znajdz auto o ID");
+        Optional<Car> car = carService.findByIdCar(identyfikator);
+        return car;
     }
+
+
+
+
 
 }
